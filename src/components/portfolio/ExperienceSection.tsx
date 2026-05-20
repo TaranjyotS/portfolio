@@ -23,6 +23,8 @@ const ExperienceSection = () => {
         "Analyzed and graded model outputs for quality, relevance, factual correctness, and policy compliance, contributing to Meta’s RLHF and data-training pipelines.",
         "Executed high-precision data labeling, categorization, and QA workflows using Meta’s internal platforms while meeting strict productivity and accuracy targets.",
         "Ensured data privacy, confidentiality, and security by following all Innodata CNDA requirements and Meta’s AI safety policies.",
+        "Utilized Python for analyzing, validating, and processing LLM-generated outputs, including structured data handling, quality assessment, and workflow automation tasks.",
+        "Applied Python-based scripting and analytical techniques to support AI evaluation pipelines, data annotation processes, and QA validation for generative AI models.",
         "Collaborated with team leads and QA reviewers to maintain consistent task quality, resolve ambiguities, and meet operational SLAs in a fully remote environment."
       ],
       techStack: ["Meta AI tools (SRT, IA, internal annotation systems)", "Microsoft 365 (Teams, Outlook, SharePoint)", "data quality tools", "annotation pipelines", "prompt evaluation frameworks", "data-ops tooling", "Reinforcement Learning from Human Feedback (RLHF) processes", "quality evaluation workflows"]
@@ -33,7 +35,7 @@ const ExperienceSection = () => {
       location: "Montreal, QC, Canada",
       duration: "June 2022 - May 2024",
       achievements: [
-        "Developed microservices with Python & FastAPI deployed on AWS EC2 using Docker and Kubernetes.",
+        "Developed microservices with Python & FastAPI deployed on AWS EC2 using Docker and Kubernetes for improved deployment consistency and operational efficiency.",
         "Led the initiative to implement CI/CD pipelines with Jenkins, automating the testing and deployment process of applications on AWS instances as a backend and framework developer in a team of 5. Also, integrated DevSecOps tools into the pipeline (e.g., Bandit).",
         "Developed modules for data transformation and optimized high-volume data pipelines and relational queries for performance across large datasets using SAS, Pandas, PostgreSQL and Pydantic.",
         "Contributed significantly to the development, unit testing and integration of Kubernetes and Docker for the orchestration of our 6 scalable microservices, achieving 87% code coverage through extensive unit testing.",
@@ -86,18 +88,15 @@ const ExperienceSection = () => {
       title: "Software Engineer - AI Training",
       company: "Freelance",
       location: "Remote",
-      duration: "2024 - Present",
+      duration: "November 2024 - August 2025",
       achievements: [
-        "Trained and fine-tuned AI models using Reinforcement Learning with Human Feedback (RLHF).",
-        "Evaluated AI-generated responses for clarity, accuracy, and relevance using decision matrices and structured rubrics.",
-        "Rewrote and enhanced AI outputs to ensure precision and alignment with user intent.",
-        "Designed and solved complex coding problems, along with creating robust test cases to validate code performance.",
-        "Assessed the quality of AI-generated code and provided clear, justified feedback.",
-        "Ranked and compared LLM responses to guide model optimization and behavior fine-tuning.",
-        "Standardized evaluation workflows to ensure consistent, high-quality feedback.",
-        "Developed and revised prompts and outputs, integrating factual accuracy and research-driven insights.",
-        "Conducted quality assurance checks focusing on factuality, contextual relevance, and ethical compliance.",
-        "Delivered actionable feedback to improve the overall usability and effectiveness of AI systems."
+        "Trained and fine-tuned LLMs using Reinforcement Learning with Human Feedback (RLHF) to enhance model accuracy and responsiveness.",
+        "Evaluated and optimized AI-generated outputs for clarity, relevance, and alignment with user intent using structured rubrics and decision matrices.",
+        "Designed and solved complex programming tasks, creating robust test cases to validate AI reasoning and performance.",
+        "Used Python to develop, validate, and optimize coding solutions, test cases, and algorithmic workflows for AI model evaluation and RLHF training tasks.",
+        "Leveraged Python for data analysis, prompt evaluation automation, and structured validation of AI-generated outputs to improve model accuracy and consistency.",
+        "Delivered detailed, actionable feedback on code and natural language outputs to improve usability, factual accuracy, and ethical compliance.",
+        "Standardized prompt engineering workflows and conducted QA checks to ensure consistent, high-quality LLM behavior across multiple use cases."
       ],
       techStack: ["Python", "TensorFlow", "PyTorch", "Machine Learning", "AI Training", "RLHF", "Natural Language Processing", "Model Optimization", "Quality Assurance", "Prompt Engineering", "Data Analysis", "Research", "Testing", "Logical and analytical reasoning", "Data annotation", "Bias detection and Mitigation", "AI Model error analysis", "Hallucination detection in LLMs"]
     }

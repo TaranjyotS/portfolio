@@ -66,10 +66,10 @@ const ProjectsSection = () => {
   // Prioritized projects list with excluded repositories filtered out
   const prioritizedProjects = [
     'face-recognition',
-    'ocr',
+    'smart-budget-allocator',
     'mlops-ci-cd',
+    'resume-api',
     'pca-for-diagnosis-of-heart-disease',
-    'traffic-management-using-quality-methodologies',
     'design-improvement-and-quality-control-of-boeing-737-max-aircraft'
   ];
 

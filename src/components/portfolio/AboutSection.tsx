@@ -43,8 +43,8 @@ const AboutSection = () => {
                 Experienced Software Engineer with <strong className="text-primary">5+ years of hands-on experience</strong> designing and developing
                 scalable backend systems, cloud-native microservices, and production-grade ML/AI workflows. Skilled in Python, FastAPI, Flask, AWS,
                 Docker, Kubernetes, and CI/CD automation with DevSecOps practices. Experienced in LLM evaluation, prompt engineering, and RLHF-based AI
-                training through work with Meta (via Innodata and Outlier). Strong focus on API design, distributed systems, data engineering, and secure
-                software delivery.
+                training through work with Meta (via Innodata and Outlier). Strong focus on scalable distributed systems, cloud-native APIs, backend reliability,
+                data engineering, and secure software delivery for production environments.
               </p>
             </CardContent>
           </Card>
