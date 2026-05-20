@@ -27,7 +27,7 @@ const ExperienceSection = () => {
         "Applied Python-based scripting and analytical techniques to support AI evaluation pipelines, data annotation processes, and QA validation for generative AI models.",
         "Collaborated with team leads and QA reviewers to maintain consistent task quality, resolve ambiguities, and meet operational SLAs in a fully remote environment."
       ],
-      techStack: ["Meta AI tools (SRT, IA, internal annotation systems)", "Microsoft 365 (Teams, Outlook, SharePoint)", "data quality tools", "annotation pipelines", "prompt evaluation frameworks", "data-ops tooling", "Reinforcement Learning from Human Feedback (RLHF) processes", "quality evaluation workflows"]
+      techStack: ["Python", "Machine Learning", "AI Training", "NLP", "Data Quality tools", "Meta AI tools (SRT, IA, internal annotation systems)", "Microsoft 365 (Teams, Outlook, SharePoint)", "Annotation pipelines", "Prompt Evaluation frameworks", "Data-ops tooling", "Reinforcement Learning from Human Feedback (RLHF) processes", "Quality Valuation workflows"]
     },
     {
       title: "Software Development Engineer",
