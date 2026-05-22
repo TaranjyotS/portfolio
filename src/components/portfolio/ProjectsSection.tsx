@@ -75,7 +75,7 @@ const ProjectsSection = () => {
 
   // Filter and sort projects with priority order
   const filteredProjects = githubProjects
-    .filter(repo => !['portfolio', 'TaranjyotS', 'web-server-hacking'].includes(repo.name))
+    .filter(repo => !['portfolio', 'TaranjyotS'].includes(repo.name))
     .sort((a, b) => {
       // Move Bridge project to last
       if (a.name === 'bridge') return 1;
