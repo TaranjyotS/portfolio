@@ -187,4 +187,4 @@ The portfolio uses a comprehensive design system defined in `src/index.css`:
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).

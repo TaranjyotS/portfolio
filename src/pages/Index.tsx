@@ -25,7 +25,7 @@ const Index = () => {
         <footer className="bg-slate-900/50 backdrop-blur-sm py-8 text-center border-t border-white/10">
           <div className="container mx-auto px-6">
             <p className="text-gray-400">
-              © 2025 Taranjyot Singh.
+              © 2026 Taranjyot Singh.
             </p>
           </div>
         </footer>
