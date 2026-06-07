@@ -1,0 +1,20 @@
+name: Screenshot Refresh Reminder
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+
+jobs:
+  screenshot-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify project image assets
+        run: |
+          test -d public/projects
+          find public/projects -maxdepth 1 -type f | sort
+      - name: Build portfolio before screenshots
+        run: |
+          npm ci
+          npm run build

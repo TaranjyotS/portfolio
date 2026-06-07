@@ -1,283 +1,288 @@
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight, ExternalLink, FileText, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Github, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 
-interface ProjectDescriptionProps {
+type ProjectCategory = "AI" | "Backend" | "Cloud" | "Data" | "Security" | "Finance";
+
+type Project = {
+  name: string;
+  focus: string;
   description: string;
-}
-
-const ProjectDescription = ({ description }: ProjectDescriptionProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const maxLength = 100;
-  
-  if (description.length <= maxLength) {
-    return <p className="text-muted-foreground mb-4">{description}</p>;
-  }
-  
-  return (
-    <div className="mb-4">
-      <p className="text-muted-foreground">
-        {isExpanded ? description : `${description.slice(0, maxLength)}...`}
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="ml-2 text-primary hover:underline text-sm font-medium"
-        >
-          {isExpanded ? 'Read less' : 'Read more'}
-        </button>
-      </p>
-    </div>
-  );
+  image: string;
+  repo: string;
+  demo?: string;
+  readme: string;
+  tags: string[];
+  category: ProjectCategory;
 };
 
-interface GitHubRepo {
-  id: number;
-  name: string;
-  description: string;
-  html_url: string;
-  homepage?: string;
-  language: string;
-  stargazers_count: number;
-  forks_count: number;
-  topics: string[];
-  updated_at: string;
-}
+const projects: Project[] = [
+  {
+    name: "Resume AI Platform",
+    focus: "GenAI • RAG • FastAPI • React",
+    description: "AI-powered full-stack platform for generating ATS-optimized resumes, tailored cover letters, recruiter emails, LinkedIn messages, and interview prep packages.",
+    image: "/projects/resume-ai-platform.svg",
+    repo: "https://github.com/TaranjyotS/resume-api",
+    demo: "https://resume-api-taranjyot-singh.vercel.app",
+    readme: "https://github.com/TaranjyotS/resume-api#readme",
+    tags: ["FastAPI", "React", "Ollama", "JWT", "Docker"],
+    category: "AI",
+  },
+  {
+    name: "Smart Budget Allocator",
+    focus: "Finance • FastAPI • React",
+    description: "Full-stack personal finance and Canadian tax planning platform for income, expenses, budgeting, goals, asset allocation, and TFSA/FHSA/RRSP planning.",
+    image: "/projects/smart-budget-allocator.svg",
+    repo: "https://github.com/TaranjyotS/smart-budget-allocator",
+    demo: "https://smart-budget-allocator.vercel.app",
+    readme: "https://github.com/TaranjyotS/smart-budget-allocator#readme",
+    tags: ["FastAPI", "React", "Finance", "Tax Planning", "Charts"],
+    category: "Finance",
+  },
+  {
+    name: "Offer Intelligence Platform",
+    focus: "ML Orchestration • Real-Time Analytics",
+    description: "Enterprise-grade ML offer orchestration platform for loyalty decisioning, predictive scoring, secure transactions, and real-time analytics.",
+    image: "/projects/offer-intelligence-platform.svg",
+    repo: "https://github.com/TaranjyotS/offer-intelligence-platform",
+    demo: "https://offer-intelligence-platform.vercel.app/",
+    readme: "https://github.com/TaranjyotS/offer-intelligence-platform#readme",
+    tags: ["Python", "FastAPI", "ML", "Analytics", "Transactions"],
+    category: "Finance",
+  },
+  {
+    name: "Web Security Auditor",
+    focus: "Security • OWASP • .NET 8",
+    description: "Defensive web security auditing platform for authorized DNS, HTTP header, SSL/TLS, certificate health, and controlled port exposure checks.",
+    image: "/projects/web-security-auditor.svg",
+    repo: "https://github.com/TaranjyotS/web-security-auditor",
+    readme: "https://github.com/TaranjyotS/web-security-auditor#readme",
+    tags: [".NET 8", "Blazor", "SQLite", "Docker", "Security"],
+    category: "Security",
+  },
+  {
+    name: "MLOps CI/CD Platform",
+    focus: "MLOps • MLflow • DVC",
+    description: "Production-ready MLOps framework automating data validation, model training, experiment tracking, versioned pipelines, and CI/CD quality gates.",
+    image: "/projects/mlops-ci-cd.svg",
+    repo: "https://github.com/TaranjyotS/mlops-ci-cd",
+    readme: "https://github.com/TaranjyotS/mlops-ci-cd#readme",
+    tags: ["MLflow", "DVC", "FastAPI", "Docker", "GitHub Actions"],
+    category: "Data",
+  },
+  {
+    name: "Real-Time Financial Analytics Platform",
+    focus: "Streaming • Analytics • Finance",
+    description: "Financial analytics platform focused on real-time metrics, backend APIs, event-style workflows, dashboards, testing, and CI/CD readiness.",
+    image: "/projects/real-time-financial-analytics-platform.svg",
+    repo: "https://github.com/TaranjyotS/real-time-financial-analytics-platform",
+    readme: "https://github.com/TaranjyotS/real-time-financial-analytics-platform#readme",
+    tags: ["FastAPI", "Analytics", "Finance", "CI/CD", "Docker"],
+    category: "Finance",
+  },
+  {
+    name: "Multi-Agent AI Workflow Platform",
+    focus: "Agents • LangGraph • Automation",
+    description: "Agentic AI workflow platform demonstrating multi-step orchestration, tool-style execution, API workflows, and automation patterns.",
+    image: "/projects/multi-agent-ai-workflow-platform.svg",
+    repo: "https://github.com/TaranjyotS/multi-agent-ai-workflow-platform",
+    readme: "https://github.com/TaranjyotS/multi-agent-ai-workflow-platform#readme",
+    tags: ["Python", "FastAPI", "LangGraph", "Agents", "Workflows"],
+    category: "AI",
+  },
+  {
+    name: "Distributed API Gateway",
+    focus: "Routing • Resilience • Microservices",
+    description: "Microservices gateway covering routing, downstream integration, request forwarding, resiliency, and production-style API architecture.",
+    image: "/projects/distributed-api-gateway.svg",
+    repo: "https://github.com/TaranjyotS/distributed-api-gateway",
+    readme: "https://github.com/TaranjyotS/distributed-api-gateway#readme",
+    tags: ["FastAPI", "Microservices", "Routing", "Docker", "System Design"],
+    category: "Backend",
+  },
+  {
+    name: "Cloud-Native SaaS Platform",
+    focus: "SaaS • DevOps • Kubernetes",
+    description: "Cloud-native SaaS platform showcasing backend services, tenant-aware architecture, CI/CD, security checks, Docker, and deployment-ready practices.",
+    image: "/projects/cloud-native-saas-platform.svg",
+    repo: "https://github.com/TaranjyotS/cloud-native-saas-platform",
+    readme: "https://github.com/TaranjyotS/cloud-native-saas-platform#readme",
+    tags: ["Python", "SaaS", "Docker", "Kubernetes", "CI/CD"],
+    category: "Cloud",
+  },
+  {
+    name: "Data Engineering Pipeline Platform",
+    focus: "ETL • Airflow • Data Quality",
+    description: "Data platform demonstrating ingestion, validation, lineage, warehouse-style tables, dashboarding, and pipeline quality checks.",
+    image: "/projects/data-engineering-pipeline-platform.svg",
+    repo: "https://github.com/TaranjyotS/data-engineering-pipeline-platform",
+    readme: "https://github.com/TaranjyotS/data-engineering-pipeline-platform#readme",
+    tags: ["FastAPI", "Airflow", "PostgreSQL", "ETL", "Data Quality"],
+    category: "Data",
+  },
+  {
+    name: "Facial Emotion Recognition Platform",
+    focus: "Computer Vision • Deep Learning",
+    description: "Computer vision platform for emotion classification using deep learning workflows, model training, evaluation, and application-oriented documentation.",
+    image: "/projects/facial-emotion-recognition-platform.svg",
+    repo: "https://github.com/TaranjyotS/facial-emotion-recognition-platform",
+    readme: "https://github.com/TaranjyotS/facial-emotion-recognition-platform#readme",
+    tags: ["Python", "TensorFlow", "Computer Vision", "CNN", "ML"],
+    category: "AI",
+  },
+  {
+    name: "Aerospace Quality Risk Analytics",
+    focus: "Aviation • Risk • Analytics",
+    description: "Aerospace analytics project focused on quality risk indicators, structured analysis, insights, and engineering-style reporting.",
+    image: "/projects/aerospace-quality-risk-analytics.svg",
+    repo: "https://github.com/TaranjyotS/aerospace-quality-risk-analytics",
+    readme: "https://github.com/TaranjyotS/aerospace-quality-risk-analytics#readme",
+    tags: ["Python", "Analytics", "Risk", "Aerospace", "Quality"],
+    category: "Data",
+  },
+  {
+    name: "Traffic Quality Analytics Platform",
+    focus: "Traffic • Quality • Dashboards",
+    description: "Analytics platform for traffic-quality signals, quality monitoring, metric analysis, dashboarding, and decision-support workflows.",
+    image: "/projects/traffic-quality-analytics-platform.svg",
+    repo: "https://github.com/TaranjyotS/traffic-quality-analytics-platform",
+    readme: "https://github.com/TaranjyotS/traffic-quality-analytics-platform#readme",
+    tags: ["Python", "Analytics", "Dashboards", "Quality", "Data"],
+    category: "Data",
+  },
+  {
+    name: "OCR Digit Recognition Platform",
+    focus: "OCR • Computer Vision • ML",
+    description: "OCR digit recognition project built around handwritten digit classification, computer vision, model training, and prediction workflows.",
+    image: "/projects/ocr-digit-recognition-platform.svg",
+    repo: "https://github.com/TaranjyotS/ocr-digit-recognition-platform",
+    readme: "https://github.com/TaranjyotS/ocr-digit-recognition-platform#readme",
+    tags: ["Python", "OpenCV", "OCR", "TensorFlow", "ML"],
+    category: "AI",
+  },
+  {
+    name: "Heart Disease Risk ML Platform",
+    focus: "Healthcare • ML • Risk Scoring",
+    description: "Machine learning platform for heart disease risk prediction, model evaluation, feature analysis, and healthcare analytics demonstration.",
+    image: "/projects/heart-disease-risk-ml-platform.svg",
+    repo: "https://github.com/TaranjyotS/heart-disease-risk-ml-platform",
+    readme: "https://github.com/TaranjyotS/heart-disease-risk-ml-platform#readme",
+    tags: ["Python", "ML", "Healthcare", "Risk", "Analytics"],
+    category: "AI",
+  },
+  {
+    name: "Portfolio Website",
+    focus: "React • TypeScript • Personal Brand",
+    description: "Modern portfolio website presenting backend, AI, cloud, data, and security projects with a recruiter-friendly product-engineering layout.",
+    image: "/projects/portfolio.svg",
+    repo: "https://github.com/TaranjyotS/portfolio",
+    demo: "https://portfolio-taranjyot-singh.vercel.app",
+    readme: "https://github.com/TaranjyotS/portfolio#readme",
+    tags: ["React", "TypeScript", "Tailwind", "Vite", "Portfolio"],
+    category: "Cloud",
+  },
+];
+
+const categories = ["All", "AI", "Backend", "Cloud", "Data", "Security", "Finance"];
+
+const publications = [
+  {
+    title: "RDBMS Analysis for Big Data using Elasticsearch",
+    journal: "IJRECE, Vol. 7, Issue 2",
+    year: "2019",
+    description: "Published research exploring Elasticsearch-based search architectures for Big Data analytics, indexing, sharding, inverted indexes, and scalable full-text search.",
+    tags: ["Elasticsearch", "Big Data", "RDBMS", "Search Architecture"],
+    link: "https://i2or-ijrece.com",
+    image: "/projects/research-elasticsearch.svg",
+  },
+];
 
 const ProjectsSection = () => {
-  const [githubProjects, setGithubProjects] = useState<GitHubRepo[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [showAllProjects, setShowAllProjects] = useState(false);
-  const [publicationsCurrentSlide, setPublicationsCurrentSlide] = useState(0);
-  
-  const publications = [
-    {
-      title: "RDBMS Analysis for Big Data using ElasticSearch",
-      journal: "IJRECE",
-      year: "2022",
-      description: "Research on studying Big Data with ElasticSearch for quicker data access.",
-      tags: ["ElasticSearch", "Big Data", "RDBMS"],
-      link: "https://i2or-ijrece.com",
-      image: "https://images.unsplash.com/photo-1493397212122-2b85dda8106b?w=400&h=250&fit=crop" // Building with wavy lines
-    }
-  ];
-  
-  // Prioritized projects list with excluded repositories filtered out
-  const prioritizedProjects = [
-    'face-recognition',
-    'smart-budget-allocator',
-    'mlops-ci-cd',
-    'resume-api',
-    'pca-for-diagnosis-of-heart-disease',
-    'design-improvement-and-quality-control-of-boeing-737-max-aircraft'
-  ];
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [showAll, setShowAll] = useState(false);
+  const [startIndex, setStartIndex] = useState(0);
 
-  // Filter and sort projects with priority order
-  const filteredProjects = githubProjects
-    .filter(repo => !['portfolio', 'TaranjyotS'].includes(repo.name))
-    .sort((a, b) => {
-      // Move Bridge project to last
-      if (a.name === 'bridge') return 1;
-      if (b.name === 'bridge') return -1;
-      
-      const aIndex = prioritizedProjects.indexOf(a.name);
-      const bIndex = prioritizedProjects.indexOf(b.name);
-      
-      if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
-      if (aIndex !== -1) return -1;
-      if (bIndex !== -1) return 1;
-      return 0;
-    })
-    .map((project, index) => ({
-      ...project,
-      category: getCategoryForProject(project.name, project.topics),
-      image: getUniqueImageForProject(project.name, index)
-    }));
-  
-  const totalPublicationSlides = Math.ceil(publications.length / 3);
-  const displayedProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, 3);
-  
-  // Helper function to categorize projects
-  function getCategoryForProject(name: string, topics: string[]): string {
-    const nameAndTopics = [name.toLowerCase(), ...topics.map(t => t.toLowerCase())];
-    
-    if (nameAndTopics.some(item => ['docker', 'kubernetes', 'jenkins', 'aws', 'azure', 'cloud', 'devops', 'ci-cd', 'terraform'].includes(item))) {
-      return 'cloud-devops';
-    }
-    if (nameAndTopics.some(item => ['data', 'ml', 'ai', 'analysis', 'pipeline', 'etl', 'bigdata'].includes(item))) {
-      return 'data-engineering';
-    }
-    if (nameAndTopics.some(item => ['architecture', 'system', 'microservice', 'distributed', 'scalable'].includes(item))) {
-      return 'system-architecture';
-    }
-    return 'full-stack-development';
-  }
-  
-  // Helper function to get unique project images
-  function getUniqueImageForProject(name: string, index: number): string {
-    const projectImages = [
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop', // OCR/Document scanning (swapped for OCR)
-      'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=250&fit=crop', // Face recognition/AI (swapped for FaceRecognition)
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop', // Quality/Analytics
-      'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=400&h=250&fit=crop', // Data pipeline
-      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop', // Microservices
-      'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=250&fit=crop', // Cloud infrastructure
-      'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=250&fit=crop', // General coding
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=250&fit=crop', // Web development
-      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=250&fit=crop', // Mobile development
-      'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=250&fit=crop', // Database/Backend
-      'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=250&fit=crop', // DevOps
-      'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&h=250&fit=crop', // Security
-    ];
-    
-    return projectImages[index % projectImages.length];
-  }
-  
-  // Helper function to get category display name and color
-  function getCategoryInfo(category: string) {
-    const categories = {
-      'full-stack-development': { name: 'Full-Stack Development', color: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
-      'data-engineering': { name: 'Data Engineering', color: 'bg-purple-500/10 text-purple-600 border-purple-500/20' },
-      'cloud-devops': { name: 'Cloud & DevOps', color: 'bg-green-500/10 text-green-600 border-green-500/20' },
-      'system-architecture': { name: 'System Architecture', color: 'bg-orange-500/10 text-orange-600 border-orange-500/20' }
-    };
-    
-    return categories[category as keyof typeof categories] || categories['full-stack-development'];
-  }
-  
-  useEffect(() => {
-    const fetchGitHubProjects = async () => {
-      try {
-        const response = await fetch('https://api.github.com/users/TaranjyotS/repos?sort=updated&per_page=30');
-        if (response.ok) {
-          const repos = await response.json();
-          setGithubProjects(repos.filter((repo: GitHubRepo) => !repo.name.includes('.github')));
-        }
-      } catch (error) {
-        console.error('Error fetching GitHub projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const filteredProjects = useMemo(() => activeCategory === "All" ? projects : projects.filter((project) => project.category === activeCategory), [activeCategory]);
+  const visibleProjects = showAll ? filteredProjects : filteredProjects.slice(startIndex, startIndex + 3);
 
-    fetchGitHubProjects();
-  }, []);
+  const move = (direction: "left" | "right") => {
+    if (direction === "left") setStartIndex((value) => Math.max(0, value - 1));
+    if (direction === "right") setStartIndex((value) => Math.min(Math.max(0, filteredProjects.length - 3), value + 1));
+  };
+
+  const resetFilter = (category: string) => { setActiveCategory(category); setStartIndex(0); setShowAll(false); };
 
   return (
     <section id="projects" className="py-20 section-gradient">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gradient mb-4">Featured Work</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore my projects and publications showcasing innovative solutions and research contributions.
-          </p>
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-4">Featured Work</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Production-style projects across AI, backend engineering, cloud architecture, data systems, security, and finance.</p>
         </div>
 
         <Tabs defaultValue="projects" className="space-y-8">
           <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto h-12 p-1">
-            <TabsTrigger value="projects" className="text-sm font-medium">Projects</TabsTrigger>
-            <TabsTrigger value="publications" className="text-sm font-medium">Publications</TabsTrigger>
+            <TabsTrigger value="projects">Projects</TabsTrigger>
+            <TabsTrigger value="research">Research</TabsTrigger>
           </TabsList>
 
           <TabsContent value="projects" className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayedProjects.map((project, index) => {
-                const categoryInfo = getCategoryInfo(project.category);
-                return (
-                  <Card key={index} className="group hover-lift transition-all duration-300 bg-card/50 backdrop-blur-sm border border-border/50 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <div className="relative w-full h-32 overflow-hidden">
-                      <img 
-                        src={project.image} 
-                        alt={project.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-xl font-semibold text-card-foreground group-hover:text-primary transition-colors">
-                        {project.name}
-                      </CardTitle>
-                      <p className="text-muted-foreground">{categoryInfo.name}</p>
-                    </CardHeader>
+            <div className="flex flex-wrap justify-center gap-2">
+              {categories.map((category) => <Button key={category} variant={activeCategory === category ? "default" : "outline"} size="sm" onClick={() => resetFilter(category)}>{category}</Button>)}
+            </div>
+
+            <div className="flex items-center justify-center gap-4">
+              {!showAll && <Button variant="outline" size="icon" onClick={() => move("left")} disabled={startIndex === 0}><ChevronLeft className="w-4 h-4" /></Button>}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 flex-1 max-w-6xl">
+                {visibleProjects.map((project) => (
+                  <Card
+                    key={project.name}
+                    role="link"
+                    tabIndex={0}
+                    onClick={() => window.open(project.repo, "_blank", "noopener,noreferrer")}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") window.open(project.repo, "_blank", "noopener,noreferrer");
+                    }}
+                    className="group hover-lift transition-all duration-300 bg-card border border-border overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <div className="relative w-full h-48 overflow-hidden bg-muted"><img src={project.image} alt={`${project.name} preview`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" /><Badge className="absolute top-4 left-4 bg-slate-950/80 text-white border-white/20 backdrop-blur-sm">{project.category}</Badge></div>
+                    <CardHeader><CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors">{project.name}</CardTitle><p className="text-primary font-medium">{project.focus}</p></CardHeader>
                     <CardContent>
-                      <ProjectDescription description={project.description || "No description available"} />
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.language && (
-                          <Badge variant="outline" className="text-xs">{project.language}</Badge>
-                        )}
-                        {project.topics?.slice(0, 2).map((topic) => (
-                          <Badge key={topic} variant="outline" className="text-xs">{topic}</Badge>
-                        ))}
-                      </div>
-                      <div className="flex gap-2">
-                        {project.html_url && (
-                          <Button variant="outline" size="sm" asChild>
-                            <a href={project.html_url} target="_blank" rel="noopener noreferrer">
-                              <Github className="w-4 h-4 mr-2" />
-                              View Code
-                            </a>
-                          </Button>
-                        )}
-                        {project.homepage && (
-                          <Button variant="outline" size="sm" asChild>
-                            <a href={project.homepage} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              Live Demo
-                            </a>
-                          </Button>
-                        )}
+                      <p className="text-muted-foreground mb-5 leading-relaxed line-clamp-4">{project.description}</p>
+                      <div className="flex flex-wrap gap-2 mb-5">{project.tags.map((tag) => <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>)}</div>
+                      <div className="flex flex-wrap gap-2" onClick={(event) => event.stopPropagation()}>
+                        <Button variant="outline" size="sm" asChild><a href={project.repo} target="_blank" rel="noopener noreferrer"><Github className="w-4 h-4 mr-2" /> Code</a></Button>
+                        {project.demo && <Button variant="outline" size="sm" asChild><a href={project.demo} target="_blank" rel="noopener noreferrer"><ExternalLink className="w-4 h-4 mr-2" /> Live Demo</a></Button>}
+                        <Button variant="outline" size="sm" asChild><a href={project.readme} target="_blank" rel="noopener noreferrer"><FileText className="w-4 h-4 mr-2" /> README</a></Button>
                       </div>
                     </CardContent>
                   </Card>
-                );
-              })}
-            </div>
-            
-            {filteredProjects.length > 3 && (
-              <div className="flex justify-center mt-12">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowAllProjects(!showAllProjects)}
-                  className="px-8 py-3 rounded-full hover-scale transition-all duration-300"
-                >
-                  {showAllProjects ? 'Show Less' : `View All Projects (${filteredProjects.length})`}
-                  <ChevronRight className={`w-4 h-4 ml-2 transition-transform duration-300 ${showAllProjects ? 'rotate-180' : ''}`} />
-                </Button>
+                ))}
               </div>
-            )}
+              {!showAll && <Button variant="outline" size="icon" onClick={() => move("right")} disabled={startIndex >= filteredProjects.length - 3}><ChevronRight className="w-4 h-4" /></Button>}
+            </div>
+            <div className="text-center"><Button variant="outline" onClick={() => setShowAll(!showAll)}>{showAll ? "Show Featured 3" : `View All Projects (${filteredProjects.length})`}</Button></div>
           </TabsContent>
 
-          <TabsContent value="publications" className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {publications.map((publication, index) => (
-                <Card key={index} className="group hover-lift transition-all duration-300 bg-card/50 backdrop-blur-sm border border-border/50">
-                  <div className="relative w-full h-32 overflow-hidden">
-                    <img 
-                      src={publication.image} 
-                      alt={publication.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="text-xl font-semibold text-card-foreground group-hover:text-primary transition-colors">
-                      {publication.title}
-                    </CardTitle>
-                    <p className="text-muted-foreground">{publication.journal} • {publication.year}</p>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">{publication.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {publication.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
-                      ))}
-                    </div>
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={publication.link} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        View Publication
-                      </a>
-                    </Button>
-                  </CardContent>
+          <TabsContent value="research">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {publications.map((publication) => (
+                <Card
+                  key={publication.title}
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => window.open(publication.link, "_blank", "noopener,noreferrer")}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") window.open(publication.link, "_blank", "noopener,noreferrer");
+                  }}
+                  className="group hover-lift bg-card border border-border overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <div className="relative w-full h-48 overflow-hidden bg-muted"><img src={publication.image} alt={`${publication.title} preview`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" /></div>
+                  <CardHeader><CardTitle>{publication.title}</CardTitle><p className="text-muted-foreground">{publication.journal} • {publication.year}</p></CardHeader>
+                  <CardContent><p className="text-muted-foreground mb-5">{publication.description}</p><div className="flex flex-wrap gap-2 mb-5">{publication.tags.map((tag) => <Badge key={tag} variant="outline">{tag}</Badge>)}</div><div onClick={(event) => event.stopPropagation()}><Button variant="outline" size="sm" asChild><a href={publication.link} target="_blank" rel="noopener noreferrer"><ExternalLink className="w-4 h-4 mr-2" /> View Publication</a></Button></div></CardContent>
                 </Card>
               ))}
             </div>

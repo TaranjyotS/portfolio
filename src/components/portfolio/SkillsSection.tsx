@@ -1,76 +1,55 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+const skillCategories = [
+  {
+    title: "Backend & Platform Engineering",
+    skills: ["Python", "FastAPI", "Flask", "Django", "REST APIs", "Microservices", "Pydantic", "SQLAlchemy", "Celery", "Redis"],
+  },
+  {
+    title: "AI / GenAI",
+    skills: ["LLMs", "RLHF", "Prompt Engineering", "RAG", "LangChain", "LangGraph", "Agentic AI", "Embeddings", "Vector Databases", "Model Evaluation"],
+  },
+  {
+    title: "Cloud & DevOps",
+    skills: ["AWS", "EC2", "S3", "Lambda", "Docker", "Kubernetes", "Jenkins", "GitHub Actions", "Terraform", "DevSecOps"],
+  },
+  {
+    title: "Data Engineering",
+    skills: ["PostgreSQL", "MySQL", "MongoDB", "Elasticsearch", "Pandas", "NumPy", "ETL Pipelines", "Airflow", "Data Processing"],
+  },
+  {
+    title: "Frontend & Full Stack",
+    skills: ["React", "TypeScript", "JavaScript", "Vite", "Tailwind CSS", "Node.js", "Responsive UI", "API Integration"],
+  },
+  {
+    title: "Software Engineering",
+    skills: ["System Design", "API Design", "Software Architecture", "Testing", "Pytest", "Release Management", "Agile", "Documentation"],
+  },
+];
 
 const SkillsSection = () => {
-  const skillCategories = [
-    {
-      title: "Programming Languages",
-      skills: ["Python", "JavaScript", "TypeScript", "C++", "Java", "Groovy", "Bash"],
-      color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
-    },
-    {
-      title: "Frameworks & Libraries",
-      skills: ["React.js", "Node.js", "Flask", "Django", "TensorFlow", "PyTorch", "NumPy", "Pandas", "Scikit-learn", "OpenCV"],
-      color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-    },
-    {
-      title: "Cloud & DevOps",
-      skills: ["AWS (S3, EC2, Lambda)", "Azure", "Docker", "Kubernetes", "Jenkins", "Terraform", "CI/CD", "Linux", "DevSecOps"],
-      color: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"
-    },
-    {
-      title: "Databases",
-      skills: ["MySQL", "PostgreSQL", "MongoDB", "NoSQL", "ElasticSearch", "SQL Server"],
-      color: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300"
-    },
-    {
-      title: "Tools & Technologies",
-      skills: ["Git", "Docker Desktop", "VS Code", "Postman", "Jira", "Redis", "Celery", "Grafana", "Airflow", "DataBricks", "Bitbucket"],
-      color: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300"
-    },
-    {
-      title: "Concepts & Methodologies",
-      skills: ["OOP", "Data Structures", "Software Architecture", "Agile Development", "ETL Processes", "Microservices", "Versioning", "Release management", "Product management"],
-      color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300"
-    },
-    {
-      title: "AI/ML & LLM",
-      skills: ["RLHF", "Prompt Engineering", "LLM Evaluation", "Model Fine-tuning", "Data Annotation & Quality", "Embeddings", "OCR", "NLP pipelines"],
-      color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300"
-    }
-  ];
-
   return (
     <section id="skills" className="py-20 section-gradient">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
-            Technical Skills
-          </h2>
-          <div className="w-24 h-1 skill-gradient mx-auto mb-8 rounded-full"></div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">Core Expertise</h2>
+          <div className="w-24 h-1 skill-gradient mx-auto mb-8 rounded-full" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive toolkit of modern technologies and methodologies for building robust, scalable applications.
+            A snapshot of the technologies I use to build backend platforms, AI systems, and cloud-native applications.
           </p>
         </div>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, index) => (
-            <Card 
-              key={index} 
-              className="bg-card border shadow-card transition-smooth hover-lift h-full animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
+            <Card key={category.title} className="bg-card/70 border shadow-card transition-smooth hover-lift h-full animate-fade-in" style={{ animationDelay: `${index * 0.08}s` }}>
               <CardHeader className="pb-4">
                 <CardTitle className="text-xl text-center text-foreground">{category.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, skillIndex) => (
-                    <Badge 
-                      key={skillIndex} 
-                      variant="secondary"
-                      className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/20 hover:scale-105 transition-all duration-300 cursor-default"
-                    >
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {category.skills.map((skill) => (
+                    <Badge key={skill} variant="secondary" className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/20 transition-all duration-300 cursor-default">
                       {skill}
                     </Badge>
                   ))}

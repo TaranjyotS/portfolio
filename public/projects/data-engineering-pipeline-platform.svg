@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="0.55" stop-color="#db2777" stop-opacity="0.55"/><stop offset="1" stop-color="#f97316" stop-opacity="0.85"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity="0.45"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <circle cx="1020" cy="120" r="180" fill="#f97316" opacity="0.18"/>
+  <circle cx="120" cy="620" r="220" fill="#db2777" opacity="0.22"/>
+  <rect x="85" y="85" width="1030" height="505" rx="32" fill="#020617" opacity="0.82" filter="url(#shadow)"/>
+  <rect x="120" y="125" width="960" height="64" rx="18" fill="#111827"/>
+  <circle cx="160" cy="157" r="9" fill="#ef4444"/><circle cx="190" cy="157" r="9" fill="#f59e0b"/><circle cx="220" cy="157" r="9" fill="#22c55e"/>
+  <rect x="120" y="220" width="390" height="34" rx="17" fill="#f97316" opacity="0.22"/>
+  <text x="145" y="244" font-family="Inter, Arial, sans-serif" font-size="20" fill="#e2e8f0" font-weight="700">Data</text>
+  <text x="120" y="340" font-family="Inter, Arial, sans-serif" font-size="48" fill="#ffffff" font-weight="800">Data Engineering Pipeline</text>
+  <text x="120" y="392" font-family="Inter, Arial, sans-serif" font-size="26" fill="#bae6fd" font-weight="600">ETL • Quality • Lineage</text>
+  <rect x="120" y="275" width="315" height="10" rx="5" fill="#94a3b8" opacity="0.20"/><rect x="120" y="303" width="214" height="10" rx="5" fill="#94a3b8" opacity="0.24"/><rect x="120" y="331" width="154" height="10" rx="5" fill="#94a3b8" opacity="0.28"/><rect x="120" y="359" width="305" height="10" rx="5" fill="#94a3b8" opacity="0.32"/><rect x="120" y="387" width="293" height="10" rx="5" fill="#94a3b8" opacity="0.36"/><rect x="120" y="415" width="165" height="10" rx="5" fill="#94a3b8" opacity="0.40"/><rect x="120" y="443" width="361" height="10" rx="5" fill="#94a3b8" opacity="0.44"/>
+  <rect x="735" y="245" width="280" height="210" rx="28" fill="#0f172a" stroke="#f97316" stroke-width="4" opacity="0.95"/>
+  <polyline points="785,392 835,342 885,372 945,302" fill="none" stroke="#f97316" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="785" cy="392" r="12" fill="#f97316"/><circle cx="835" cy="342" r="12" fill="#f97316"/><circle cx="885" cy="372" r="12" fill="#f97316"/><circle cx="945" cy="302" r="12" fill="#f97316"/>
+</svg>
